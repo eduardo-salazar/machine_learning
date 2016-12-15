@@ -1,12 +1,13 @@
 require 'minitest/autorun'
+require_relative 'spec_helper.rb'
 
 describe 'Decision Trees Behavior' do
   before do
-    dt = DecisionTree.new(DECISIONTREE_TESTING_DATA)
+    @dt = DecisionTree.new(DECISIONTREE_TESTING_DATA)
   end
 
   it 'should calculate entropy' do
-    gain = dt.gain(2,3)
+    gain = @dt.gain(2,3)
     gain > 0
   end
 
