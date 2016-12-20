@@ -9,8 +9,8 @@ describe 'Decision Trees Behavior' do
   end
 
   it 'should calculate entropy' do
-    gain = @dt.gain(2,3)
-    gain > 0
+    gain = @dt.gain(4,1)
+    gain.must_equal 0.722
   end
 
   describe 'Training and Testing dataset check' do
