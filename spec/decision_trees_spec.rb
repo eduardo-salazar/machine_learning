@@ -37,6 +37,7 @@ describe 'Decision Trees Behavior' do
         row[4].wont_be_empty
       end
     end
+
     it 'shoudl check that testing data has question mark for class label' do
       i = 0
       CSV.foreach(DECISIONTREE_TESTING_DATA) do |row|
@@ -50,5 +51,10 @@ describe 'Decision Trees Behavior' do
         i=+1
       end
     end
+
+  end
+
+  describe 'Testing C4.5 algorith behavior' do
+
   end
 end
