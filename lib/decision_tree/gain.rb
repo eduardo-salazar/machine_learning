@@ -7,8 +7,8 @@ module DecisionTree
     # information gain equals to entropy of target minus entropy of splitting the attribute
     # ig = E(t) - E(T,X)
     def information_gain(attr, labels)
-      e_target = entropy(attr,labels)
-      e_target
+      table = frequency_table attr, labels
+      table.pretty_print
     end
 
     # To calculate entropy we have to check how many yes and how many no
@@ -30,6 +30,10 @@ module DecisionTree
     end
 
     private
+    def frequency_table (data_target, data_class_label)
+      return FrequencyTable.new(data_target,data_class_label)
+    end
+
     def parse_attr(array)
       result = {}
       array.each do |key|

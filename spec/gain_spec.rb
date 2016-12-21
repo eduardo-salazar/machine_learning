@@ -20,9 +20,14 @@ describe 'Information Gain Behavior' do
   end
 
   # Test information gain of splitting Has Credit Account
-  it 'should calculate the information of splitting dimention[Has Credit Account]' do
+  it 'should calculate the entropy of dimention[Has Credit Account]' do
+    entropy = @gain.entropy(@data[0],@class_label)
+    entropy.must_equal 0.971
+  end
+
+  it 'should calculate the information_gain of splitting[Has Credit Account]' do
     information_gain = @gain.information_gain(@data[0],@class_label)
-    information_gain.must_equal 0.971
+    information_gain.must_equal 0.015
   end
 
 end
