@@ -6,9 +6,26 @@ module DecisionTree
     # Calculate entropy of target
     # information gain equals to entropy of target minus entropy of splitting the attribute
     # ig = E(t) - E(T,X)
+    # information_gain = entropy_target - net_gain
     def information_gain(attr, labels)
       table = frequency_table attr, labels
-      table.pretty_print
+      target = table.header_target_attribute.map do |key|
+        table.sum_target(key)
+      end
+
+      entropy_target = gain(target)
+
+      splitting_gain = []
+      sum_target = table.header_target_attribute.inject(0) {|sum,key| sum + table.sum_target(key)}
+      net_gain = 0.0
+      table.header_target_attribute.each_with_index do |key,index|
+        net_gain += (table.sum_target(key).to_f/sum_target.to_f) * gain(table.values[index])
+      end
+
+
+      information_gain = entropy_target - net_gain
+
+      information_gain
     end
 
     # To calculate entropy we have to check how many yes and how many no
@@ -17,15 +34,18 @@ module DecisionTree
       mapped = parse_attr(attr)
       if mapped.keys.size == 2
         #Binary attributes
-        return gain(mapped.values[0],mapped.values[1])
+        return gain([mapped.values[0],mapped.values[1]])
       end
     end
 
 
     # Calculate the gain value
-    def gain(positive, negative)
-      sum = positive + negative
-      gain = (positive.to_f/sum.to_f) * calcLog2(positive.to_f/sum.to_f) + (negative.to_f/sum.to_f)* calcLog2(negative.to_f/sum.to_f)
+    def gain(array)
+      sum = array.inject(0) {|sum,x| sum + x }
+      gain = 0.0
+      array.each do |num|
+        gain += (num.to_f/sum.to_f) * calcLog2(num.to_f/sum.to_f)
+      end
       return -gain.round(3)
     end
 

@@ -14,8 +14,8 @@ describe 'Information Gain Behavior' do
     @gain = DecisionTree::Gain.new
   end
 
-  it 'should calculate information gain' do
-    gain = @gain.gain(4,1)
+  it 'should calculate gain for two values' do
+    gain = @gain.gain([4,1])
     gain.must_equal 0.722
   end
 
@@ -27,7 +27,7 @@ describe 'Information Gain Behavior' do
 
   it 'should calculate the information_gain of splitting[Has Credit Account]' do
     information_gain = @gain.information_gain(@data[0],@class_label)
-    information_gain.must_equal 0.015
+    information_gain.must_equal 0.571
   end
 
 end
