@@ -30,4 +30,12 @@ describe 'Information Gain Behavior' do
     information_gain.must_equal 0.571
   end
 
+  it 'should calculate the information gain for all attributes' do
+    information_gain = []
+    @attributes.each_with_index do |attr, index|
+      information_gain.push(@gain.information_gain(@data[index],@class_label))
+    end
+    information_gain.must_equal [0.571,0.571,0.073]
+  end
+
 end

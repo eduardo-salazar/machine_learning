@@ -27,12 +27,12 @@ module DecisionTree
 
     def sum_target(option)
       index_target = @header_target_attribute.index(option)
-      values[index_target].inject(0) {|sum,x| sum + x }
+      @values[index_target].inject(0) {|sum,x| sum + x }
     end
 
     def sum_class_label(option)
       index_class_label = @header_class_label.index(option)
-      values.inject(0) {|sum,x| sum + x[index_class_label]}
+      @values.inject(0) {|sum,x| sum + x[index_class_label]}
     end
 
     private
