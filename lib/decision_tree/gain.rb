@@ -9,6 +9,7 @@ module DecisionTree
     # information_gain = entropy_target - net_gain
     def information_gain(attr, labels)
       table = frequency_table attr, labels
+      #table.pretty_print
       target = table.header_target_attribute.map do |key|
         table.sum_target(key)
       end
@@ -24,6 +25,7 @@ module DecisionTree
 
 
       information_gain = entropy_target - net_gain
+      information_gain = information_gain.round(3)
 
       information_gain
     end
