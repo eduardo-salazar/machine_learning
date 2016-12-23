@@ -38,4 +38,7 @@ describe 'Information Gain Behavior' do
     information_gain.must_equal [0.571,0.571,0.073]
   end
 
+  it 'should return ' do
+  end
+
 end
