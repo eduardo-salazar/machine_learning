@@ -2,19 +2,27 @@ require 'tree'
 module DecisionTree
   class SimpleTree
 
-    def initialize(root)
-       @root_node = Tree::TreeNode.new(root, root)
+    def add_root(root, content)
+      @root_node = Tree::TreeNode.new(root, content)
     end
 
-    def add_to(parent, element)
+    def root_node
+      @root_node
+    end
+
+    def add_to(parent, element, content)
       node = find_node(parent)
-      node << Tree::TreeNode.new(element, element)
+      if element.instance_of? SimpleTree
+        node << element.root_node
+      else
+        node << Tree::TreeNode.new(element, content)
+      end
     end
 
     def find_node(parent)
       result = nil
       @root_node.each do |node|
-        if node.content == parent
+        if node.name == parent
           result = node
         end
       end
