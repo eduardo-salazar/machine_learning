@@ -35,6 +35,18 @@ module DecisionTree
       @values.inject(0) {|sum,x| sum + x[index_class_label]}
     end
 
+    def leaf_class_label(target_attr)
+      index = @header_target_attribute.index(target_attr)
+      leaf_label = ""
+      @values[index].each_with_index do |value, index|
+        if value == sum_target(target_attr)
+          # This node doesnt need to split
+          leaf_label = @header_class_label[index]
+        end
+      end
+      leaf_label
+    end
+
     private
 
     def parse_attr(array)

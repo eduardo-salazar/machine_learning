@@ -9,6 +9,7 @@ rvm:
 matrix:
  allow_failures:
   - rvm: jruby-head
+  - rvm: ruby-head
 branches:
  only:
   - master
