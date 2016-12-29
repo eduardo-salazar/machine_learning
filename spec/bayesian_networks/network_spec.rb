@@ -6,7 +6,7 @@ require_relative '../init.rb'
 describe 'Bayesian Network' do
   it 'should create network and return probability' do
     net       = BayesianNetwork::Net.new("Grass Wetness Belief Net")
-    cloudy    = BayesianNetwork::Variable.new(net, :cloudy, [0.5, 0.5])
+    cloudy    = BayesianNetworkbn::Variable.new(net, :cloudy, [0.5, 0.5])
     sprinkler = BayesianNetwork::Variable.new(net, :sprinkler, [0.1, 0.9, 0.5, 0.5])
     rain      = BayesianNetwork::Variable.new(net, :rain, [0.8, 0.2, 0.2, 0.8])
     grass_wet = BayesianNetwork::Variable.new(net, :grass_wet, [0.99, 0.01, 0.9, 0.1, 0.9, 0.1, 0.0, 1.0])
@@ -17,6 +17,7 @@ describe 'Bayesian Network' do
     evidence = {:cloudy => :false, :rain => :true}
     net.set_evidence(evidence)
     puts net.query_variable(:grass_wet)
-
   end
+
+  
 end
