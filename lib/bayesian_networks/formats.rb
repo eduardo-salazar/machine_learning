@@ -2,7 +2,7 @@ require 'active_support/core_ext/hash'
 require 'builder'
 require 'xmlsimple'
 
-module Sbn
+module BayesianNetwork
   class Net
 
     # Load the Variables from the JSON and hook up the parents for nodes that have them.
@@ -54,7 +54,7 @@ module Sbn
       xml = Builder::XmlMarkup.new(:indent => 2)
       xml.instruct!
       xml.comment! <<-EOS
-      
+
         Bayesian network in XMLBIF v0.3 (BayesNet Interchange Format)
         Produced by SBN (Simple Bayesian Network library)
         Output created #{Time.now}
@@ -87,18 +87,18 @@ module Sbn
         end
       end
     end
-    
+
     # Reconstitute a saved network.
     def self.from_xmlbif(source)
       # convert tags to lower case
       source.gsub!(/(<.*?>)/, '\\1'.downcase)
-      
+
       doc = XmlSimple.xml_in(source)
       netname = doc['network'].first['name'].first
-            
+
       # find net name
       returnval = Net.new(netname)
-      
+
       # find variables
       count = 0
       variables = {}
