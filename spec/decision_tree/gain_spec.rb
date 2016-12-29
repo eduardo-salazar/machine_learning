@@ -35,6 +35,7 @@ describe 'Information Gain Behavior' do
     @attributes.each_with_index do |attr, index|
       information_gain.push(@gain.information_gain(@data[index],@class_label))
     end
+    print information_gain
     information_gain.must_equal [0.571,0.571,0.073]
   end
 end

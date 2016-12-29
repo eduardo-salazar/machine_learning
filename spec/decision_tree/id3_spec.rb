@@ -13,6 +13,7 @@ describe 'Decision ID3 behavior' do
 
   it 'should inititalize id3 class with correct values' do
     tree = @id3.tree
+    tree.print
     tree.wont_be_nil
   end
 
