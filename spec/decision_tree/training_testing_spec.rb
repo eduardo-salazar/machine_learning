@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'csv'
-require_relative '../lib/init.rb'
+require_relative '../init.rb'
 
 describe 'Training and Testing dataset check' do
 
