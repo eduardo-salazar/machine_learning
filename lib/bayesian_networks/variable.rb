@@ -154,6 +154,9 @@ module BayesianNetwork
   	# blanket in addition to the variable itself.
     def get_random_state_with_markov_blanket(event) # :nodoc:
       evaluations = []
+      # puts "Evaluating markov blanket"
+      #puts @states
+      #puts event
       @states.each {|s| evaluations << evaluate_markov_blanket(s, event) }
       evaluations.normalize!
       seek_state {|s| evaluations.shift }
@@ -173,7 +176,11 @@ module BayesianNetwork
 
     def evaluate_marginal(state, event) # :nodoc:
       temp_probs = @probability_table.dup
+      # puts "Temp probs #{state}"
+      # puts temp_probs.to_s
       remove_irrelevant_states(temp_probs, state, event)
+      # puts "importand"
+      # puts temp_probs.to_s
       sum = 0.0
       temp_probs.each {|e| sum += e[1] }
       sum
@@ -218,6 +225,7 @@ module BayesianNetwork
     end
 
     def evaluate_markov_blanket(state, event)
+      # puts "Evaluating state #{state} with event #{event}"
       returnval = 1.0
       temp_probs = @probability_table.dup
       remove_irrelevant_states(temp_probs, state, event)
@@ -226,6 +234,7 @@ module BayesianNetwork
       returnval *= evaluate_marginal(state, event)
       @children.each {|child| returnval *= child.evaluate_marginal(child.get_observed_state(event), event) }
       event[@name] = temp
+      # puts "ext #{returnval} for state #{state}"
       returnval
     end
 
