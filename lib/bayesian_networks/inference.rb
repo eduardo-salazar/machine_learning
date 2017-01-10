@@ -1,6 +1,6 @@
 module BayesianNetwork
   class Net
-    MCMC_DEFAULT_SAMPLE_COUNT = 1
+    MCMC_DEFAULT_SAMPLE_COUNT = 2000
 
   	# Returns a hash containing the estimated posterior probability of each
     # possible state for the specified variable, based on previously-supplied
