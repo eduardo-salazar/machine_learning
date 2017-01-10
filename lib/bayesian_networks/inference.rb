@@ -17,26 +17,42 @@ module BayesianNetwork
     #
     # Optionally accepts a block that receives a number between 0 and 1 indicating
     # the percentage of completion.
+
+    # Steps:
+    # 1. Get the states of the query
+    # 2. Set those states to zero or starting point
+    # 3. Generate random event
+    # 4. Remove variables that are included in evidence
+    # 5. Select a random event
+    # 6. for every sample count calculate random state using markov blanket
+    # 7. sum result of new event to corresponding state
+    # 8. Calculate percentage of state
     def query_variable(varname, sample_count = MCMC_DEFAULT_SAMPLE_COUNT, callback = nil)
       # keep track of number of times a state has been observed
+      # puts "Trying to infer using MCMC"
       state_frequencies = {}
       varname = varname.to_underscore_sym
       states = @variables[varname].states
       states.each {|s| state_frequencies[s] ||= 0 }
-
+      #puts "State frequencies"
+      #puts state_frequencies
       e = generate_random_event
+      # puts "Event"
+      #puts e
       relevant_evidence = e.reject {|key, val| @variables[key].set_in_evidence?(@evidence) }
-
+      #puts relevant_evidence
       sample_count.times do |n|
+        #puts "sample #{n}"
         state = e[varname]
         state_frequencies[state] += 1
-
         relevant_evidence.each do |vname, vstate|
           e[vname] = @variables[vname].get_random_state_with_markov_blanket(e)
+          #puts "Calc random statate with markov blanket of variable #{vname} = #{e}"
         end
         yield(n / sample_count.to_f) if block_given?
       end
-
+      #puts "State Frequency"
+      #puts state_frequencies
       # normalize results
       magnitude = 0
       returnval = {}

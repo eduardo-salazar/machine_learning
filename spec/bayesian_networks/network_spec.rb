@@ -17,6 +17,9 @@ describe 'Bayesian Network' do
     evidence = {:cloudy => :false, :rain => :true}
     net.set_evidence(evidence)
     puts net.query_variable(:grass_wet)
+    evidence = {:cloudy => :true, :grass_wet => :true}
+    net.set_evidence(evidence)
+    puts net.query_variable(:rain)
   end
 
   it 'should create network and return probability' do
@@ -31,7 +34,7 @@ describe 'Bayesian Network' do
     rain.add_child(grass_wet)
     evidence = {:cloudy => :false, :rain => :true}
     net.set_evidence(evidence)
-    puts net.query_variable(:grass_wet)
+    net.query_variable(:grass_wet)
   end
 
 
